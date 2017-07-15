@@ -1,12 +1,11 @@
 import hashlib
 
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.models import UserManager
 from django.db import models
 from django.utils.deprecation import CallableFalse, CallableTrue
 
 
-class FsFoodsaver(models.Model):
+class User(models.Model):
     bezirk_id = models.IntegerField()
     position = models.CharField(max_length=255)
     verified = models.IntegerField()
