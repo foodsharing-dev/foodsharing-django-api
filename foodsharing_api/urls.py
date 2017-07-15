@@ -19,11 +19,13 @@ from rest_framework import routers
 from rest_framework_swagger.views import get_swagger_view
 
 from foodsharing_api.session.api import SessionViewSet
+from foodsharing_api.stores.api import StoreViewSet
 from foodsharing_api.users.api import UserViewSet
 
 router = routers.DefaultRouter()
 
 router.register(r'users', UserViewSet)
+router.register(r'stores', StoreViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls, namespace='api/v1')),

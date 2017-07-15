@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'foodsharing_api.users',
     'foodsharing_api.session',
+    'foodsharing_api.stores',
 
     'django_extensions',
     'rest_framework',
