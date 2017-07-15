@@ -1,0 +1,7 @@
+django
+django-extensions
+django-rest-swagger
+djangorestframework
+mysqlclient
+flake8
+

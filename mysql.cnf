@@ -1,0 +1,7 @@
+[client]
+database = foodsharing
+user = root
+host = 127.0.0.1
+port = 13306
+password = root
+default-character-set = utf8
