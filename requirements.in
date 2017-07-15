@@ -1,8 +1,10 @@
 django
+django-enumfields
 django-extensions
 django-rest-swagger
 django-silk
 djangorestframework
+factory_boy
 mysqlclient
 flake8
 
