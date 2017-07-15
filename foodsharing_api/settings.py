@@ -40,13 +40,16 @@ INSTALLED_APPS = [
     'foodsharing_api.users',
     'foodsharing_api.session',
     'foodsharing_api.stores',
+    'foodsharing_api',
 
     'django_extensions',
     'rest_framework',
     'rest_framework_swagger',
+    'silk',
 ]
 
 MIDDLEWARE = [
+    'silk.middleware.SilkyMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

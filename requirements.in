@@ -1,6 +1,7 @@
 django
 django-extensions
 django-rest-swagger
+django-silk
 djangorestframework
 mysqlclient
 flake8
