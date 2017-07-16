@@ -56,7 +56,7 @@ class PickupViewSet(
         queryset = self.filter_queryset(self.get_queryset())
 
         filter_kwargs = {'store': self.kwargs['store'], 'at': self.kwargs['at']}
-        res = queryset.filter(**filter_kwargs).select_related('user')
+        res = queryset.filter(**filter_kwargs).select_related('user', 'store')
 
         obj = res.first()
         if obj is None:

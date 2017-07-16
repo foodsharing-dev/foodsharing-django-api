@@ -24,4 +24,4 @@ class ConversationViewSet(
         return serializer_class
 
     def get_queryset(self):
-        return self.queryset.filter(members=self.request.user).order_by('-last_message')
+        return self.queryset.filter(members=self.request.user).order_by('-last_message').prefetch_related('members', 'last_message', 'last_message__sent_by')

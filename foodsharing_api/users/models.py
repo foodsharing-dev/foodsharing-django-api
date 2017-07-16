@@ -82,6 +82,10 @@ class User(models.Model):
         return CallableTrue
 
     @property
+    def is_staff(self):
+        return self.admin
+
+    @property
     def is_active(self):
         return self.active > 0
 

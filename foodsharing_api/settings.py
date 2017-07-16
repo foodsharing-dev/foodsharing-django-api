@@ -17,14 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 AUTH_USER_MODEL = 'users.User'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^!+w4(8^9alg-s5b9(6@k!9#yk@8d8rgvd&7h=901p8xfb($w8'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -85,19 +77,7 @@ WSGI_APPLICATION = 'foodsharing_api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'foodsharing',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '13306',
-        'OPTIONS': {
-            'read_default_file': 'mysql.cnf',
-        },
-    }
-}
+
 
 
 # Password validation
@@ -137,3 +117,18 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SESSION_COOKIE_HTTPONLY = True
+
+LOGIN_URL = '/api/v1/session/'
+LOGOUT_URL = '/api/v1/session/'
+
+SILKY_AUTHENTICATION = True
+SILKY_AUTHORISATION = True
+
+# NB: Keep this as the last line, and keep
+# local_settings.py out of version control
+try:
+    from .local_settings import *
+except ImportError:
+    raise Exception("local_settings.py is missing! Copy the provided example file and adapt it to your own config.")

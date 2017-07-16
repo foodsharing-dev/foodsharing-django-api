@@ -35,4 +35,4 @@ class ConversationRetrieveSerializer(ConversationListSerializer):
         return  ConversationMessageSerializer(ordered_queryset, many=True).data
     class Meta:
         model = ConversationModel
-        fields = ['name', 'locked', 'messages', 'members']
+        fields = ['id', 'name', 'locked', 'messages', 'members']
