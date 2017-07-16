@@ -3,10 +3,15 @@ from rest_framework import serializers
 from foodsharing_api.stores.models import Store as StoreModel
 from foodsharing_api.stores.models import StoreTeam as StoreTeamModel
 from foodsharing_api.users.serializers import UserSerializer
+from foodsharing_api.users.models import User as UserModel
 
+class StoreUserSerializer(UserSerializer):
+    class Meta:
+        model = UserModel
+        fields = ['id', 'first_name', 'photo', 'phone', 'mobile']
 
 class StoreTeamSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = StoreUserSerializer()
     class Meta:
         model = StoreTeamModel
         fields = ['user', 'coordinator']
