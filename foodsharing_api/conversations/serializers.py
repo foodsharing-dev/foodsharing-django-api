@@ -31,7 +31,7 @@ class ConversationRetrieveSerializer(ConversationListSerializer):
 
     def get_messages(self, instance):
         ordered_queryset = ConversationMessageModel.objects.filter(conversation_id=instance.id)\
-            .order_by('-sent_at')
+            .order_by('id')
         return  ConversationMessageSerializer(ordered_queryset, many=True).data
     class Meta:
         model = ConversationModel
