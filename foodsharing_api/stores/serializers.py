@@ -15,8 +15,9 @@ class StoreTeamSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         sub_representation = representation.pop('user')
-        for key in sub_representation:
-            representation[key] = sub_representation[key]
+        if sub_representation:
+            for key in sub_representation:
+                representation[key] = sub_representation[key]
 
         return representation
 
