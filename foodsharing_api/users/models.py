@@ -105,8 +105,9 @@ class User(models.Model):
         return self.passwd == self.hash_password(raw_password)
 
     def set_password(self, raw_password):
-        self.passwd = self.hash_password(raw_password)
-        self.save()
+        if self.email:
+            self.passwd = self.hash_password(raw_password)
+            self.save()
 
     def __str__(self):
         return self.first_name
