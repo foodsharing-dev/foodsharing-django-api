@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'foodsharing_api.users',
     'foodsharing_api.session',
     'foodsharing_api.stores',
+    'foodsharing_api.pickups',
     'foodsharing_api',
 
     'django_extensions',

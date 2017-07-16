@@ -3,6 +3,7 @@ import datetime
 from django.core.management import BaseCommand
 
 from foodsharing_api.conversations.factories import ConversationFactory, ConversationMessageFactory
+from foodsharing_api.pickups.factories import TakenPickupFactory
 from foodsharing_api.stores.factories import StoreFactory
 from foodsharing_api.stores.models import Store as StoreModel
 from foodsharing_api.users.factories import UserFactory
@@ -28,14 +29,21 @@ class Command(BaseCommand):
         u2 = UserFactory.create(first_name='user', last_name='2', email='user2@example.com')
         ub = UserFactory.create(first_name='user', last_name='Bot', email='userBot@example.com')
 
-        s1 = StoreFactory.create(name='A Store', members=[u1, u2], coordinators=[ub])
-        s2 = StoreFactory.create(name='B Store', coordinators=[u2])
+        convs1 = ConversationFactory.create(members=[u1, u2, ub], locked=True)
+        convs2 = ConversationFactory.create(members=[u2], locked=True)
+        s1 = StoreFactory.create(name='A Store', members=[u1, u2], coordinators=[ub], team_conversation=convs1)
+        s2 = StoreFactory.create(name='B Store', coordinators=[u2], team_conversation=convs2)
 
         conv1 = ConversationFactory.create(members=[u1, u2, ub])
         conv2 = ConversationFactory.create(members=[u1, u2])
         conv3 = ConversationFactory.create(members=[u2, ub])
 
+
         conv1msg2 = ConversationMessageFactory(conversation=conv1, sent_by=u2, sent_at=datetime.datetime.now() - datetime.timedelta(days=1))
         conv1msg1 = ConversationMessageFactory(conversation=conv1, sent_by=u1)
         conv2msg1 = ConversationMessageFactory(conversation=conv2, sent_by=u1)
 
+        p1 = TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
+        p2 = TakenPickupFactory.create(user=u2, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
+        p3 = TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1, days=1))
+        p4 = TakenPickupFactory.create(user=u2, store=s2, at=datetime.datetime.now() + datetime.timedelta(weeks=1))

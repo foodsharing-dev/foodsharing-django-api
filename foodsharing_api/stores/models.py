@@ -4,11 +4,12 @@ from django.db import models
 from enumfields import Enum, EnumIntegerField
 
 from foodsharing_api.users.models import User as UserModel
+from foodsharing_api.conversations.models import Conversation as ConversationModel
 
 class StoreTeam(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, db_column='foodsaver_id')
     store = models.ForeignKey('stores.Store', db_column='betrieb_id', on_delete=models.CASCADE, related_name='team_set')
-    coordinator = models.IntegerField(blank=True, null=True, db_column='verantwortlich')
+    coordinator = models.BooleanField(db_column='verantwortlich')
     active = models.IntegerField(default=0)
     stat_last_update = models.DateTimeField(null=True)
     stat_fetchcount = models.IntegerField(default=0)
@@ -64,7 +65,7 @@ class Store(models.Model):
     store_chain = models.IntegerField(blank=True, null=True, db_column='kette_id')
     name = models.CharField(max_length=120, blank=True, null=True)
     street = models.CharField(max_length=120, blank=True, null=True, db_column='str')
-    houseNumber = models.CharField(max_length=20, blank=True, null=True, db_column='hsnr')
+    house_number = models.CharField(max_length=20, blank=True, null=True, db_column='hsnr')
     status_date = models.DateField(blank=True, null=True)
     status = models.IntegerField(blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True, db_column='telefon')
@@ -79,8 +80,8 @@ class Store(models.Model):
     average_fetch_weight = models.IntegerField(db_column='abholmenge', default=0)
     team_status = EnumIntegerField(TeamStatus, default=TeamStatus.OPEN)
     pickup_signup_advance = models.IntegerField(db_column='prefetchtime', default=1209600)
-    team_conversation = models.IntegerField(blank=True, null=True, db_column='team_conversation_id')
-    waiter_conversation = models.IntegerField(blank=True, null=True, db_column='springer_conversation_id')
+    team_conversation = models.ForeignKey(ConversationModel, db_column='team_conversation_id', related_name='+')
+    waiter_conversation = models.ForeignKey(ConversationModel, db_column='springer_conversation_id', related_name='+')
     deleted_at = models.DateTimeField(blank=True, null=True)
     team = models.ManyToManyField(UserModel, through='StoreTeam')
 

@@ -10,9 +10,10 @@ class ConversationMemberSerializer(UserSerializer):
     pass
 
 class ConversationMessageSerializer(serializers.ModelSerializer):
+    sent_by = ConversationMemberSerializer()
     class Meta:
         model = ConversationMessageModel
-        fields = ['sent_by', 'sent_at', 'body']
+        fields = ['id', 'sent_by', 'sent_at', 'body']
 
 
 class ConversationListSerializer(serializers.ModelSerializer):

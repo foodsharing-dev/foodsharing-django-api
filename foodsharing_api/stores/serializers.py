@@ -11,6 +11,15 @@ class StoreTeamSerializer(serializers.ModelSerializer):
         model = StoreTeamModel
         fields = ['user', 'coordinator']
 
+    # flatten a subfield, e.g. here: user
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        sub_representation = representation.pop('user')
+        for key in sub_representation:
+            representation[key] = sub_representation[key]
+
+        return representation
+
 class StoreSerializer(serializers.ModelSerializer):
     team = StoreTeamSerializer(many=True, source='team_set')
 
@@ -21,4 +30,4 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StoreModel
-        fields = ['id', 'name', 'street', 'houseNumber', 'zip', 'city', 'notes', 'team_conversation', 'team']
+        fields = ['id', 'name', 'street', 'house_number', 'zip', 'city', 'notes', 'team_conversation', 'team']

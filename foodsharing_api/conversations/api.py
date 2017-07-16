@@ -13,7 +13,7 @@ class ConversationViewSet(
     """
     Conversations
     """
-    queryset = ConversationModel.objects.filter()
+    queryset = ConversationModel.objects
 
     def get_serializer_class(self):
         serializer_class = None
