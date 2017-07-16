@@ -31,5 +31,5 @@ class ConversationViewSet(
 
     def get_queryset(self):
         return self.queryset.filter(members=self.request.user).\
-            order_by('-last_message').\
+            order_by('-last_message_id').\
             prefetch_related('members', 'last_message', 'last_message__sent_by')
