@@ -7,4 +7,6 @@ djangorestframework
 factory_boy
 mysqlclient
 flake8
-
+django-redis
+hiredis
+redis
