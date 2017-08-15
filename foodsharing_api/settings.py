@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'foodsharing_api.conversations.ConversationsConfig',
     'foodsharing_api.users',
-    'foodsharing_api.session',
+    'foodsharing_api.session.SessionConfig',
     'foodsharing_api.stores',
     'foodsharing_api.pickups',
     'foodsharing_api',
@@ -86,8 +86,7 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "default"
 
-# could probably be replaced with a small bit of middleware that calls redis
-# with EXPIRE to extend the TTL
+# could probably be replaced with middleware that calls EXPIRE to extend the TTL
 SESSION_SAVE_EVERY_REQUEST = True
 
 WSGI_APPLICATION = 'foodsharing_api.wsgi.application'
