@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'foodsharing_api.conversations.ConversationsConfig',
     'foodsharing_api.users',
-    'foodsharing_api.session',
+    'foodsharing_api.session.SessionConfig',
     'foodsharing_api.stores',
     'foodsharing_api.pickups',
     'foodsharing_api',
@@ -70,6 +70,24 @@ TEMPLATES = [
         },
     },
 ]
+
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{}:6379/0".format(REDIS_HOST),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        }
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+
+# could probably be replaced with middleware that calls EXPIRE to extend the TTL
+SESSION_SAVE_EVERY_REQUEST = True
 
 WSGI_APPLICATION = 'foodsharing_api.wsgi.application'
 

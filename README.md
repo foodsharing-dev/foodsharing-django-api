@@ -40,4 +40,6 @@ It is important for us to enable a good developer experience although at this st
 complicated to completely decouple the projects. It is still likely that this will be happening in
 the next months, further help on this is highly appreciated
 
-##
+## Redis
+
+You'll need a redis running locally too.
