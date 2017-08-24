@@ -29,7 +29,7 @@ fi
   env/bin/pip-sync && \
   env/bin/python manage.py migrate && \
   env/bin/python manage.py check --deploy && \
-  env/bin/python manage.py collectstatic --clear --no-input && \
+  env/bin/python manage.py collectstatic --clear --no-input
 )
 
 touch ${touch_reload}
