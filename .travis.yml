@@ -1,6 +1,8 @@
 language: python
 python: "3.4.2"
 script: true
+addons:
+  ssh_known_hosts: banana.foodsharing.de
 before_deploy:
  - openssl aes-256-cbc -K $encrypted_52b203b52387_key -iv $encrypted_52b203b52387_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
