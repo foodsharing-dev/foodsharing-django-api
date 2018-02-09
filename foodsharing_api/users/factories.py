@@ -1,3 +1,4 @@
+"""Factory for the user creation"""
 from django.contrib.auth import get_user_model
 from factory import DjangoModelFactory, faker, LazyAttribute, CREATE_STRATEGY, PostGeneration, Faker
 
@@ -13,4 +14,6 @@ class UserFactory(DjangoModelFactory):
 
     verified = 1
     active = 1
-    passwd = PostGeneration(lambda obj, *args, **kwargs: obj.set_password(obj.email))
+    passwd = PostGeneration(
+        lambda obj, *args, **kwargs: obj.set_password(obj.email)
+    )
