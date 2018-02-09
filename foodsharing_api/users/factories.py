@@ -4,6 +4,7 @@ from factory import DjangoModelFactory, faker, LazyAttribute, CREATE_STRATEGY, P
 
 
 class UserFactory(DjangoModelFactory):
+    """Factory for user creation"""
     class Meta:
         model = get_user_model()
         strategy = CREATE_STRATEGY
