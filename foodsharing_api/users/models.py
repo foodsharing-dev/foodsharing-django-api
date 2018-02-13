@@ -1,3 +1,4 @@
+"""User model"""
 import hashlib
 
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
