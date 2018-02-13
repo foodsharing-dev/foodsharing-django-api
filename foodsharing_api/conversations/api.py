@@ -1,3 +1,4 @@
+"""Define the api for the conversation app"""
 from rest_framework import mixins
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import GenericViewSet
@@ -6,6 +7,7 @@ from foodsharing_api.conversations.serializers import ConversationListSerializer
 from foodsharing_api.conversations.models import Conversation as ConversationModel
 
 class ConversationPagination(LimitOffsetPagination):
+    """Paginator for the conversation"""
     default_limit = 50
     max_limit = 1000
 
