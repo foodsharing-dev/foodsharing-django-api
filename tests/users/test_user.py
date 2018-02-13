@@ -21,12 +21,10 @@ class TestUser(TestCase):
             first_name='user',
             last_name='1',
             email='test@example.com',
-            #TODO: Check if nessecary
             geschlecht=0,
             newsletter=0
         )
 
-    @pytest.mark.django_db
     def test_creation(self):
         """Test the creation of an user"""
         assert self.user.first_name == 'user'
