@@ -1,6 +1,7 @@
 """Define the api for the conversation app"""
 from rest_framework import mixins
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
 from foodsharing_api.conversations.serializers import ConversationListSerializer
@@ -23,6 +24,7 @@ class ConversationViewSet(
     """
     queryset = ConversationModel.objects
     pagination_class = ConversationPagination
+    permission_classes = (IsAuthenticated,)
 
     def get_serializer_class(self):
         serializer_class = None
