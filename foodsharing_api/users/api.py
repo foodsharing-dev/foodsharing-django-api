@@ -9,8 +9,8 @@ from foodsharing_api.users.serializers import UserSerializer
 
 
 class UserViewSet(
-    mixins.RetrieveModelMixin,
-    GenericViewSet
+        mixins.RetrieveModelMixin,
+        GenericViewSet
 ):
     """
     Users
