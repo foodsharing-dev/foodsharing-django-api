@@ -1,5 +1,4 @@
 """Serializer for the models of the conversation app"""
-from django.db.migrations import serializer
 from rest_framework import serializers
 
 from foodsharing_api.conversations.models import ConversationMessage as ConversationMessageModel

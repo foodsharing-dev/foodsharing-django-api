@@ -3,7 +3,8 @@ from rest_framework import mixins
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import GenericViewSet
 
-from foodsharing_api.conversations.serializers import ConversationListSerializer, ConversationRetrieveSerializer
+from foodsharing_api.conversations.serializers import ConversationListSerializer
+from foodsharing_api.conversations.serializers import ConversationRetrieveSerializer
 from foodsharing_api.conversations.models import Conversation as ConversationModel
 
 class ConversationPagination(LimitOffsetPagination):
@@ -13,9 +14,9 @@ class ConversationPagination(LimitOffsetPagination):
 
 
 class ConversationViewSet(
-    mixins.RetrieveModelMixin,
-    mixins.ListModelMixin,
-    GenericViewSet
+        mixins.RetrieveModelMixin,
+        mixins.ListModelMixin,
+        GenericViewSet
 ):
     """
     Conversations
@@ -25,9 +26,9 @@ class ConversationViewSet(
 
     def get_serializer_class(self):
         serializer_class = None
-        if self.action in ('retrieve'):
+        if self.action in ('retrieve', ):
             serializer_class = ConversationRetrieveSerializer
-        elif self.action in ('list'):
+        elif self.action in ('list', ):
             serializer_class = ConversationListSerializer
         return serializer_class
 
