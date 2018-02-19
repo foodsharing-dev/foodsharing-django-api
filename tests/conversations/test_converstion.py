@@ -8,6 +8,7 @@ Testing the models of the conversation app
 from django.test import TestCase
 
 from tests.utils import create_test_conversation
+from tests.utils import create_test_user_list
 
 
 class TestConversation(TestCase):
@@ -16,7 +17,8 @@ class TestConversation(TestCase):
     @classmethod
     def setUpTestData(cls):
         """Setting a new conversation"""
-        cls.message, cls.conversation = create_test_conversation()
+        members = create_test_user_list()
+        cls.message, cls.conversation = create_test_conversation(members)
     def test_conversation(self):
         """Test the conversation creation"""
         assert self.conversation.name == 'twitter'
