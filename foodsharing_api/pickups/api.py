@@ -67,8 +67,14 @@ class PickupViewSet(
         """Returns the pickup for the user for the store"""
         queryset = self.filter_queryset(self.get_queryset())
 
-        filter_kwargs = {'store': self.kwargs['store'], 'at': self.kwargs['at']}
-        results = queryset.filter(**filter_kwargs).select_related('user', 'store')
+        filter_kwargs = {
+            'store': self.kwargs['store'],
+            'at': self.kwargs['at']
+        }
+        results = queryset.filter(**filter_kwargs).select_related(
+            'user',
+            'store'
+        )
 
         obj = results.first()
         if obj is None:
@@ -76,9 +82,9 @@ class PickupViewSet(
 
         obj.members = []
         for result in results:
-            u = result.user
-            u.confirmed = result.confirmed
-            obj.members.append(u)
+            user = result.user
+            user.confirmed = result.confirmed
+            obj.members.append(user)
 
         self.check_object_permissions(self.request, obj)
 
