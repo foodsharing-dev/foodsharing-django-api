@@ -7,7 +7,6 @@ Test the user api
 from django.urls import reverse
 from rest_framework.test import APITestCase
 
-from foodsharing_api.users.factories import UserFactory
 from tests.utils import create_test_user
 
 
