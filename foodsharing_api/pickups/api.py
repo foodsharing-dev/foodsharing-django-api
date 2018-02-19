@@ -90,7 +90,6 @@ class PickupViewSet(
 
         return obj
 
-
     def get_queryset(self):
         """Returns the predefined QuerySet"""
         if self.action == 'retrieve':
