@@ -9,7 +9,8 @@ from rest_framework.permissions import BasePermission
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from foodsharing_api.pickups.serializers import TakenPickupSerializer, PickupSerializer
+from foodsharing_api.pickups.serializers import TakenPickupSerializer
+from foodsharing_api.pickups.serializers import PickupSerializer
 from foodsharing_api.pickups.models import TakenPickup as TakenPickupModel
 
 class IsMember(BasePermission):
@@ -20,15 +21,15 @@ class IsMember(BasePermission):
     def has_object_permission(self, request, view, obj):
         """Is the user a registered foodsaver for the store"""
         found = False
-        for m in obj.store.team.all():
-            if m.id == request.user.id:
+        for member in obj.store.team.all():
+            if member.id == request.user.id:
                 found = True
         return found
 
 
 class PickupViewSet(
-    mixins.RetrieveModelMixin,
-    GenericViewSet
+        mixins.RetrieveModelMixin,
+        GenericViewSet
 ):
     """
     Pickups
@@ -58,7 +59,7 @@ class PickupViewSet(
 
     def get_serializer_class(self):
         """Sets the serializer for the pickup"""
-        if self.action=='retrieve':
+        if self.action == 'retrieve':
             serializer_class = PickupSerializer
         return serializer_class
 
@@ -67,16 +68,16 @@ class PickupViewSet(
         queryset = self.filter_queryset(self.get_queryset())
 
         filter_kwargs = {'store': self.kwargs['store'], 'at': self.kwargs['at']}
-        res = queryset.filter(**filter_kwargs).select_related('user', 'store')
+        results = queryset.filter(**filter_kwargs).select_related('user', 'store')
 
-        obj = res.first()
+        obj = results.first()
         if obj is None:
             raise Http404
 
         obj.members = []
-        for r in res:
-            u = r.user
-            u.confirmed = r.confirmed
+        for result in results:
+            u = result.user
+            u.confirmed = result.confirmed
             obj.members.append(u)
 
         self.check_object_permissions(self.request, obj)
@@ -86,7 +87,7 @@ class PickupViewSet(
 
     def get_queryset(self):
         """Returns the predefined QuerySet"""
-        if self.action=='retrieve':
+        if self.action == 'retrieve':
             return self.queryset
 
 
