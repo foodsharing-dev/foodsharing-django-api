@@ -36,14 +36,14 @@ class Command(BaseCommand):
 
         conv1 = ConversationFactory.create(members=[u1, u2, ub])
         conv2 = ConversationFactory.create(members=[u1, u2])
-        conv3 = ConversationFactory.create(members=[u2, ub])
+        ConversationFactory.create(members=[u2, ub])
 
 
-        conv1msg2 = ConversationMessageFactory(conversation=conv1, sent_by=u2, sent_at=datetime.datetime.now() - datetime.timedelta(days=1))
-        conv1msg1 = ConversationMessageFactory(conversation=conv1, sent_by=u1)
-        conv2msg1 = ConversationMessageFactory(conversation=conv2, sent_by=u1)
+        ConversationMessageFactory(conversation=conv1, sent_by=u2, sent_at=datetime.datetime.now() - datetime.timedelta(days=1))
+        ConversationMessageFactory(conversation=conv1, sent_by=u1)
+        ConversationMessageFactory(conversation=conv2, sent_by=u1)
 
-        p1 = TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
-        p2 = TakenPickupFactory.create(user=u2, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
-        p3 = TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1, days=1))
-        p4 = TakenPickupFactory.create(user=u2, store=s2, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
+        TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
+        TakenPickupFactory.create(user=u2, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1))
+        TakenPickupFactory.create(user=u1, store=s1, at=datetime.datetime.now() + datetime.timedelta(weeks=1, days=1))
+        TakenPickupFactory.create(user=u2, store=s2, at=datetime.datetime.now() + datetime.timedelta(weeks=1))

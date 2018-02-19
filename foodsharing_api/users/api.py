@@ -1,3 +1,5 @@
+"""Defining the API for the user model"""
+
 from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
@@ -7,8 +9,8 @@ from foodsharing_api.users.serializers import UserSerializer
 
 
 class UserViewSet(
-    mixins.RetrieveModelMixin,
-    GenericViewSet
+        mixins.RetrieveModelMixin,
+        GenericViewSet
 ):
     """
     Users

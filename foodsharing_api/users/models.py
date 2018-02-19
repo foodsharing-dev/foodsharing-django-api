@@ -1,11 +1,15 @@
+"""User model"""
 import hashlib
 
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-from django.utils.deprecation import CallableFalse, CallableTrue
+from django.utils.deprecation import CallableFalse
+from django.utils.deprecation import CallableTrue
 
 
 class User(models.Model):
+    """Model for the foodsharing user aka foodsaver"""
     bezirk_id = models.IntegerField(default=0)
     position = models.CharField(max_length=255)
     verified = models.IntegerField(default=0)
@@ -15,24 +19,59 @@ class User(models.Model):
     mailbox_id = models.IntegerField(null=True)
     rolle = models.IntegerField(default=0)
     type = models.IntegerField(blank=True, null=True)
-    zip = models.CharField(max_length=10, blank=True, null=True, db_column='plz')
-    city = models.CharField(max_length=100, blank=True, null=True, db_column='stadt')
+    zip = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+        db_column='plz'
+    )
+    city = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        db_column='stadt'
+    )
     lat = models.CharField(max_length=20, blank=True, null=True)
     lon = models.CharField(max_length=20, blank=True, null=True)
     photo = models.CharField(max_length=50, blank=True, null=True)
     photo_public = models.IntegerField(default=0)
     email = models.CharField(unique=True, max_length=120, blank=True, null=True)
     passwd = models.CharField(max_length=32, blank=True, null=True)
-    first_name = models.CharField(max_length=120, blank=True, null=True, db_column='name')
+    first_name = models.CharField(
+        max_length=120,
+        blank=True,
+        null=True,
+        db_column='name'
+    )
     admin = models.IntegerField(blank=True, null=True)
-    last_name = models.CharField(max_length=120, blank=True, null=True, db_column='nachname')
-    address = models.CharField(max_length=120, blank=True, null=True, db_column='anschrift')
-    phone = models.CharField(max_length=30, blank=True, null=True, db_column='telefon')
+    last_name = models.CharField(
+        max_length=120,
+        blank=True,
+        null=True,
+        db_column='nachname'
+    )
+    address = models.CharField(
+        max_length=120,
+        blank=True,
+        null=True,
+        db_column='anschrift'
+    )
+    phone = models.CharField(
+        max_length=30,
+        blank=True,
+        null=True,
+        db_column='telefon'
+    )
     tox = models.CharField(max_length=255, blank=True, null=True)
     homepage = models.CharField(max_length=255, blank=True, null=True)
     github = models.CharField(max_length=255, blank=True, null=True)
     twitter = models.CharField(max_length=255, blank=True, null=True)
-    mobile = models.CharField(max_length=50, blank=True, null=True, db_column='handy')
+    mobile = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        db_column='handy'
+    )
     geschlecht = models.IntegerField(blank=True, null=True)
     geb_datum = models.DateField(blank=True, null=True)
     anmeldedatum = models.DateTimeField(blank=True, null=True)
@@ -44,14 +83,22 @@ class User(models.Model):
     token = models.CharField(max_length=25)
     infomail_message = models.IntegerField(default=0)
     last_login = models.DateTimeField(blank=True, null=True)
-    stat_fetchweight = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    stat_fetchweight = models.DecimalField(
+        max_digits=7,
+        decimal_places=2,
+        default=0
+    )
     stat_fetchcount = models.IntegerField(default=0)
     stat_ratecount = models.IntegerField(default=0)
     stat_rating = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     stat_postcount = models.IntegerField(default=0)
     stat_buddycount = models.IntegerField(default=0)
     stat_bananacount = models.IntegerField(default=0)
-    stat_fetchrate = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    stat_fetchrate = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        default=0
+    )
     sleep_status = models.IntegerField(default=0)
     sleep_from = models.DateField(null=True)
     sleep_until = models.DateField(null=True)
@@ -83,10 +130,12 @@ class User(models.Model):
 
     @property
     def is_staff(self):
+        """Is user a admin"""
         return self.admin
 
     @property
     def is_active(self):
+        """Is the user activated"""
         return self.active > 0
 
     REQUIRED_FIELDS=[]
@@ -97,17 +146,21 @@ class User(models.Model):
         db_table = 'fs_foodsaver'
 
     def hash_password(self, raw_password):
+        """Calculates the hash for the raw password"""
         salted_password = self.email.lower() + '-lz%&lk4-' + raw_password
         hashed = hashlib.md5(salted_password.encode()).hexdigest()
         return hashed
 
     def check_password(self, raw_password):
+        """Checks if the password fits the hash"""
         return self.passwd == self.hash_password(raw_password)
 
     def set_password(self, raw_password):
+        """Sets a new password"""
         if self.email:
             self.passwd = self.hash_password(raw_password)
             self.save()
 
     def __str__(self):
+        """String representation of the User"""
         return self.first_name

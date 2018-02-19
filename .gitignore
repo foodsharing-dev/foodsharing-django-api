@@ -100,4 +100,14 @@ ENV/
 # mypy
 .mypy_cache/
 
+#pycharm 
 .idea/
+
+#sonar
+sonar_command.sh
+sonar-project.properties
+.scannerwork/
+
+#pytest
+.pytest_cache
+test_report.xml
