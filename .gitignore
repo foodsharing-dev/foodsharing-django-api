@@ -110,3 +110,4 @@ sonar-project.properties
 
 #pytest
 .pytest_cache
+test_report.xml

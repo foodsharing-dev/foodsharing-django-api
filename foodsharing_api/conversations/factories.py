@@ -1,5 +1,6 @@
 """Factories for creating Conversations and Messages"""
-import datetime
+
+from django.utils.timezone import now
 from factory import DjangoModelFactory, CREATE_STRATEGY, post_generation, Faker
 from foodsharing_api.conversations.models import Conversation as ConversationModel
 from foodsharing_api.conversations.models import ConversationMessage as ConversationMessageModel
@@ -34,4 +35,4 @@ class ConversationMessageFactory(DjangoModelFactory):
         strategy = CREATE_STRATEGY
 
     body = Faker('text')
-    sent_at = datetime.datetime.now()
+    sent_at = now()
