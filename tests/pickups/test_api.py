@@ -7,6 +7,7 @@ Test the pickup api
 import datetime
 
 from django.urls import reverse
+from django.utils.dateparse import parse_date, parse_datetime
 from rest_framework.test import APITestCase
 
 from foodsharing_api.stores.factories import StoreFactory
@@ -64,3 +65,27 @@ class TestPickUpApi(APITestCase):
         response = self.client.get(url)
         assert response.status_code == 200
 
+    def test_getting_next_pickup_without_auth(self):
+        """Testing the next pickup get api without authentication"""
+        url = reverse('api/v1:takenpickup-next')
+        response = self.client.get(url)
+        assert response.status_code == 403
+
+    def test_getting_next_pickup(self):
+        """Test the user get pickup"""
+        from foodsharing_api.pickups.factories import TakenPickupFactory
+        url = reverse('api/v1:takenpickup-next')
+        self.client.login(
+            username=self.members[0].email,
+            password='password'
+        )
+        response = self.client.get(url)
+        assert response.status_code == 200
+        new_pick_up = TakenPickupFactory.create(
+            user=self.members[0],
+            store=self.store,
+            at=datetime.datetime.now() + datetime.timedelta(hours=1)
+        )
+        response = self.client.get(url)
+        delta = parse_datetime(response.data[0]['at']) - new_pick_up.at
+        assert delta < datetime.timedelta(seconds=1)

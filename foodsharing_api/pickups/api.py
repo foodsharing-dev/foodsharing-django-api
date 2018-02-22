@@ -6,6 +6,7 @@ from django.http import Http404
 from rest_framework import mixins
 from rest_framework.decorators import list_route
 from rest_framework.permissions import BasePermission
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -36,7 +37,7 @@ class PickupViewSet(
     """
     serializer_class = TakenPickupSerializer
     queryset = TakenPickupModel.objects
-    permission_classes = (IsMember,)
+    permission_classes = (IsMember, IsAuthenticated)
 
     @list_route(['GET'])
     def next(self, request, *args, **kwargs):
