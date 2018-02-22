@@ -36,7 +36,9 @@ class StoreSerializer(serializers.ModelSerializer):
     """Store serializer"""
     team = StoreTeamSerializer(many=True, source='team_set')
 
+    @staticmethod
     def setup_eager_loading(queryset):
+        """Implements the joins for the store query"""
         queryset = queryset.prefetch_related(
             'team_set',
             'team',
