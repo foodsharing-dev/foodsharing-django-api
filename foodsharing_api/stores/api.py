@@ -1,3 +1,6 @@
+"""
+Api for the stores app
+"""
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
@@ -19,4 +22,7 @@ class StoreViewSet(
 
     @setup_eager_loading
     def get_queryset(self):
-        return self.queryset.filter(team=self.request.user).all().prefetch_related('team')
+        """Returns the stores for the given user"""
+        return self.queryset.filter(
+            team=self.request.user
+        ).all().prefetch_related('team')
