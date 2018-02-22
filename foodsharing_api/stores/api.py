@@ -10,9 +10,9 @@ from foodsharing_api.utils.decorators import setup_eager_loading
 
 
 class StoreViewSet(
-    mixins.RetrieveModelMixin,
-    mixins.ListModelMixin,
-    GenericViewSet
+        mixins.RetrieveModelMixin,
+        mixins.ListModelMixin,
+        GenericViewSet
 ):
     """
     Stores
