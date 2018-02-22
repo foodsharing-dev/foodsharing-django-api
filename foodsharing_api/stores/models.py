@@ -11,8 +11,17 @@ from foodsharing_api.conversations.models import Conversation as ConversationMod
 
 class StoreTeam(models.Model):
     """Model for the store team members"""
-    user = models.ForeignKey('users.User', on_delete=models.CASCADE, db_column='foodsaver_id')
-    store = models.ForeignKey('stores.Store', db_column='betrieb_id', on_delete=models.CASCADE, related_name='team_set')
+    user = models.ForeignKey(
+        'users.User',
+        on_delete=models.CASCADE,
+        db_column='foodsaver_id'
+    )
+    store = models.ForeignKey(
+        'stores.Store',
+        db_column='betrieb_id',
+        on_delete=models.CASCADE,
+        related_name='team_set'
+    )
     coordinator = models.BooleanField(db_column='verantwortlich')
     active = models.IntegerField(default=0)
     stat_last_update = models.DateTimeField(null=True)
