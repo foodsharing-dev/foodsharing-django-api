@@ -7,7 +7,8 @@ Testing the store model
 from django.test import TestCase
 
 from foodsharing_api.stores.factories import StoreFactory
-from tests.utils import create_test_conversation, create_test_user_list
+from tests.utils import create_test_user_list
+from tests.utils import create_test_conversation
 
 
 class TestStore(TestCase):
