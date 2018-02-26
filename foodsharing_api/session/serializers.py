@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 
 class AuthLoginSerializer(serializers.Serializer):
+    """Serializer to login and create a session"""
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
