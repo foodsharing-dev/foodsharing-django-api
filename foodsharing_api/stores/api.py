@@ -2,6 +2,7 @@
 Api for the stores app
 """
 from rest_framework import mixins
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
 from foodsharing_api.stores.serializers import StoreSerializer
@@ -19,6 +20,7 @@ class StoreViewSet(
     """
     serializer_class = StoreSerializer
     queryset = StoreModel.objects.filter(deleted_at=None)
+    permission_classes = (IsAuthenticated,)
 
     @setup_eager_loading
     def get_queryset(self):
