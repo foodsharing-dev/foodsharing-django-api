@@ -4,8 +4,6 @@ import hashlib
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-from django.utils.deprecation import CallableFalse
-from django.utils.deprecation import CallableTrue
 
 
 class User(models.Model):
@@ -118,7 +116,7 @@ class User(models.Model):
         Always return False. This is a way of comparing User objects to
         anonymous users.
         """
-        return CallableFalse
+        return False
 
     @property
     def is_authenticated(self):
@@ -126,7 +124,7 @@ class User(models.Model):
         Always return True. This is a way to tell if the user has been
         authenticated in templates.
         """
-        return CallableTrue
+        return True
 
     @property
     def is_staff(self):

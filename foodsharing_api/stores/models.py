@@ -146,11 +146,13 @@ class Store(models.Model):
     )
     team_conversation = models.ForeignKey(
         ConversationModel,
+        models.CASCADE,
         db_column='team_conversation_id',
         related_name='+'
     )
     waiter_conversation = models.ForeignKey(
         ConversationModel,
+        models.CASCADE,
         db_column='springer_conversation_id',
         related_name='+'
     )
