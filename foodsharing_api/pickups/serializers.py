@@ -1,3 +1,4 @@
+"""Serializer for pickup app"""
 from rest_framework import serializers
 from rest_framework.fields import BooleanField
 
@@ -9,6 +10,7 @@ from foodsharing_api.users.models import User as UserModel
 
 
 class TakenPickupSerializer(serializers.ModelSerializer):
+    """Taken pickup serializer"""
     user = UserSerializer()
     store = StoreSerializer()
 
@@ -17,6 +19,7 @@ class TakenPickupSerializer(serializers.ModelSerializer):
         fields = ['user', 'store', 'at', 'confirmed']
 
 class PickupMemberSerializer(serializers.ModelSerializer):
+    """Pickup member serializer"""
     confirmed = BooleanField()
 
     class Meta:
@@ -25,6 +28,7 @@ class PickupMemberSerializer(serializers.ModelSerializer):
 
 
 class PickupSerializer(serializers.ModelSerializer):
+    """Pickup serializer"""
     members = PickupMemberSerializer(many=True)
     store = StoreSerializer()
 

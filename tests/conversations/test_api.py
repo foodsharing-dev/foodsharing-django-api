@@ -7,7 +7,7 @@ Testing the conversation api
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
-from tests.utils import create_test_user
+from tests.utils import create_test_user_list
 from tests.utils import create_test_conversation
 
 
@@ -17,8 +17,8 @@ class TestConversationApi(APITestCase):
     @classmethod
     def setUpTestData(cls):
         """Creating test data"""
-        create_test_user()
-        _, cls.conversation = create_test_conversation()
+        cls.members = create_test_user_list()
+        _, cls.conversation = create_test_conversation(cls.members)
 
     def test_getting_conversation_list_without_auth(self):
         """Testing the conversation list get api with authentication"""
@@ -29,7 +29,7 @@ class TestConversationApi(APITestCase):
     def test_getting_conversation_list(self):
         """Test the conversation list get api"""
         url = reverse('api/v1:conversation-list')
-        self.client.login(username='test@example.com', password='password')
+        self.client.login(username='test1@example.com', password='password')
         response = self.client.get(url)
         assert response.status_code == 200
 

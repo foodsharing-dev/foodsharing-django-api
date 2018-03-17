@@ -4,8 +4,10 @@
 """
 Helper functions for the unit tests
 """
-from foodsharing_api.conversations.factories import ConversationMessageFactory, \
-    ConversationFactory
+import datetime
+
+from foodsharing_api.conversations.factories import ConversationMessageFactory
+from foodsharing_api.conversations.factories import ConversationFactory
 from foodsharing_api.users.factories import UserFactory
 
 
@@ -21,8 +23,8 @@ def create_test_user():
     user.set_password('password')
     return user
 
-def create_test_conversation():
-    """Creating a test conversation with anything necessary"""
+def create_test_user_list():
+    """create a list of users"""
     members = []
     for i in range(10):
         member = UserFactory.create(
@@ -34,6 +36,10 @@ def create_test_conversation():
         )
         member.set_password('password')
         members.append(member)
+    return members
+
+def create_test_conversation(members):
+    """Creating a test conversation with anything necessary"""
 
     conversation = ConversationFactory.create(
         name = 'twitter',
@@ -45,3 +51,17 @@ def create_test_conversation():
         conversation=conversation
     )
     return message, conversation
+
+def create_test_pickups(store, members):
+    """Create a set of test pickups for a store"""
+    from foodsharing_api.pickups.factories import TakenPickupFactory
+    pickups = []
+    for user in members:
+        pickups.append(
+            TakenPickupFactory.create(
+                user=user,
+                store=store,
+                at=datetime.datetime.now() + datetime.timedelta(weeks=1)
+            )
+        )
+    return pickups
