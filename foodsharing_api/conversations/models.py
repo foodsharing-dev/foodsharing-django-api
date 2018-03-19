@@ -60,7 +60,11 @@ class ConversationMessage(models.Model):
 
 class ConversationMember(models.Model):
     """Model for the members of a conversation"""
-    user = models.ForeignKey(User, db_column='foodsaver_id')
+    user = models.ForeignKey(
+        User,
+        models.DO_NOTHING,
+        db_column='foodsaver_id',
+    )
     conversation = models.ForeignKey(
         Conversation,
         models.DO_NOTHING,

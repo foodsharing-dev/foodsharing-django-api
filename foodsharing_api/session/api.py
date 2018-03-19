@@ -18,7 +18,7 @@ class SessionViewSet(viewsets.GenericViewSet):
         response_serializer: UserSerializer
         """
         generate_csrf_token_for_frontend(request)
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return Response(
                 data={"error": "not_authed"},
                 status=status.HTTP_401_UNAUTHORIZED
