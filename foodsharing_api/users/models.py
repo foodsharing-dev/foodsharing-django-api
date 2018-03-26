@@ -3,6 +3,7 @@ import hashlib
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.hashers import check_password
 from django.db import models
 
 
@@ -34,7 +35,7 @@ class User(models.Model):
     photo = models.CharField(max_length=50, blank=True, null=True)
     photo_public = models.IntegerField(default=0)
     email = models.CharField(unique=True, max_length=120, blank=True, null=True)
-    passwd = models.CharField(max_length=32, blank=True, null=True)
+    password = models.CharField(max_length=255, blank=True, null=True)
     first_name = models.CharField(
         max_length=120,
         blank=True,
@@ -143,21 +144,13 @@ class User(models.Model):
         managed = False
         db_table = 'fs_foodsaver'
 
-    def hash_password(self, raw_password):
-        """Calculates the hash for the raw password"""
-        salted_password = self.email.lower() + '-lz%&lk4-' + raw_password
-        hashed = hashlib.md5(salted_password.encode()).hexdigest()
-        return hashed
-
     def check_password(self, raw_password):
         """Checks if the password fits the hash"""
-        return self.passwd == self.hash_password(raw_password)
+        return check_password(raw_password, 'argon2{}'.format(self.password))
 
     def set_password(self, raw_password):
         """Sets a new password"""
-        if self.email:
-            self.passwd = self.hash_password(raw_password)
-            self.save()
+        raise Exception('unsupported')
 
     def __str__(self):
         """String representation of the User"""
