@@ -40,9 +40,4 @@ class TestUser(TestCase):
     def test_password(self):
         """Testing password handling"""
         assert self.user.check_password(self.user.email)
-        hashed_pwd = self.user.hash_password(self.user.email)
-        assert hashed_pwd == self.user.passwd
-
-        self.user.set_password('new_password')
-        assert self.user.check_password('new_password')
 
